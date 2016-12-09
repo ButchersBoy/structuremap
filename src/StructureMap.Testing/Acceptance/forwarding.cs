@@ -12,6 +12,12 @@ namespace StructureMap.Testing.Acceptance
 
         public class StatefulCache : IReader, IWriter
         {
+            public static int InstanceCount { get; private set; }
+
+            public StatefulCache()
+            {
+                InstanceCount++;
+            }
         }
 
         // ENDSAMPLE
@@ -31,6 +37,7 @@ namespace StructureMap.Testing.Acceptance
 
             container.GetInstance<IReader>().ShouldBeOfType<StatefulCache>();
             container.GetInstance<IWriter>().ShouldBeOfType<StatefulCache>();
+            StatefulCache.InstanceCount.ShouldBe(1); 
         }
 
         // ENDSAMPLE
@@ -50,6 +57,7 @@ namespace StructureMap.Testing.Acceptance
 
             container.GetInstance<IReader>().ShouldBeOfType<StatefulCache>();
             container.GetInstance<IWriter>().ShouldBeOfType<StatefulCache>();
+            StatefulCache.InstanceCount.ShouldBe(1);
         }
 
         // ENDSAMPLE
